@@ -3,10 +3,8 @@
  */
 
 define([
-    'router',
-    'communication',
-    'custom'
-], function (Router, Communication, Custom) {
+    'router'
+], function (Router) {
 
     // start application
     var initialize = function () {

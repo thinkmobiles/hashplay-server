@@ -2,8 +2,8 @@
  * Created by eriy on 08.05.2015.
  */
 define([
-    'views/menu/topMenuView'
-], function (TopMenuView) {
+   // 'views/menu/topMenuView'
+], function (/*TopMenuView*/) {
 
     var appRouter;
     appRouter = Backbone.Router.extend({

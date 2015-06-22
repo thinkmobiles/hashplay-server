@@ -1,0 +1,15 @@
+<div id="pagesConteiner">
+    <ul>
+        <%taxonomies.forEach(function(taxonomy, index){%>
+
+            <li id = "<%=taxonomy.toJSON()._id%>" class="taxName"><span><%=index + 1 %></span><%=taxonomy.toJSON()._id%><span class="lvl"> level <%=taxonomy.toJSON().lvl%></span></li>
+        <%})%>
+    </ul>
+    <div id="buttonContainer">
+        <div id="button"><span>add new taxonomy</span><div class="circle"></div></div>
+    </div>
+</div>
+<div id="valuesConteiner">
+
+</div>
+<div class="clear"></div>

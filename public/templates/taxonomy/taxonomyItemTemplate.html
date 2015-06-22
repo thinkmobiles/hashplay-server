@@ -1,0 +1,13 @@
+<%values.forEach(function(value, index){%>
+   <%if (value.value !== 'not defined') {%>
+      <div class ="valContainer">
+         <div id = "<%=value._id%>" class="taxValue">
+            <div class="valueName"><%=value.value%></div>
+            <div class="remove"></div>
+            <div class="edit"></div>
+         </div>
+         <div class="clear"></div>
+      </div>
+   <%}%>
+<%})%>
+   <div class ="valContainer"><div class="addValue"><span>Add new value</span><div class="circle"></div></div></div>

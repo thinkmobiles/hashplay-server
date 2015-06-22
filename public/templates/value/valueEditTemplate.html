@@ -1,0 +1,13 @@
+<%if (data.id && data.name) {%>
+<div id="<%=data.id%>" class="editForm">
+    <input type="text" class="valueEdit" value="<%=data.name%>">
+    <input type="submit" id="addButton" value="Save">
+    <input type="button" id="cancelButton" value="Cancel">
+</div>
+<%} else {%>
+    <div id="editId" class="editForm">
+        <input type="text" class="valueEdit" value="">
+        <input type="submit" id="addButton" value="Add">
+        <input type="button" id="cancelButton" value="Cancel">
+    </div>
+<%}%>

@@ -1,0 +1,16 @@
+<nav class="navBar topMenu">
+    <div id="logo">SenSei</div>
+
+    <% for (i in topMenu) { %>
+    <div class="menuItem">
+        <% if (i == 0){%>
+        <a class="btn btn-default active" id="<%= topMenu[i].title %>" href="<%= topMenu[i].url %>"><%= topMenu[i].name %></a>
+        <%} else { %>
+        <a class="btn btn-default" id="<%= topMenu[i].title %>" href="<%= topMenu[i].url %>"><%= topMenu[i].name %></a>
+        <% } %>
+    </div>
+    <% } %>
+</nav>
+
+
+

@@ -1,7 +1,9 @@
+/**
+ * Created by User on 27.04.2015.
+ */
 var logWriter = function () {
     var fs = require('fs');
-
-    function erfunc (destination, errorString) {
+    function erfunc(destination, errorString) {
         var _dest = 'log.txt';
         var _error = errorString;
         fs.open(_dest, "a", 0644, function (err, file_handle) {
@@ -24,21 +26,20 @@ var logWriter = function () {
         });
     }
 
-    function errorHandler (res, callback, errorText) {
+    function errorHandler(res, callback, errorText){
         "use strict";
-        return function (err, result) {
-            if (err) {
+        return function(err, result){
+            if(err){
                 var errText = errorText || 'Internal server Error';
                 var stack = err.stack || err;
 
-                res.status(500).send({error: errText});
+                res.status(500 ).send({error: errText});
                 erfunc(stack);
             } else {
                 callback(result);
             }
         }
     }
-
     return {
         log: erfunc,
         errorHandler: errorHandler

@@ -1,0 +1,6 @@
+<%values.forEach(function(value, index){%>
+    <%if (value.value !== 'not defined') {%>
+        <div id = "<%=value._id%>" class="valueName"><%=value.value%></div>
+    <%}%>
+<%})%>
+<div class="saveValue"><span>Save</span></div>

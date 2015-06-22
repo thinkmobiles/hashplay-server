@@ -1,62 +1,57 @@
-module.exports = function (app, PostGre) {
-    require('../helpers/mailer')(app);
-    var logWriter = require('../helpers/logWriter')();
-    var badRequests = require('../helpers/badRequests')();
-    var Session = require('../handlers/sessions');
+module.exports = function(app, db){
+    var logWriter = require('../modules/logWriter')();
+    var models = require('../models/index')(db);
+    var usersRouter = require('./users')(db);
 
-    //Constants
-    var RESPONSES = require('../constants/responseMessages');
+    // var test0 = new Test(db);
 
-    //Routers
-    var usersRouter = require('./users')(PostGre, app);
-    var session = new Session(PostGre);
 
-    app.get('/', function (req, res, next) {
-        res.sendfile('index.html');
+    app.get('/', function(req, res, next){
+        res.status(200).send( 'Express start succeed' );
     });
 
+    app.use('/user', usersRouter);
 
-    function notFound(req, res, next) {
-        res.status(404);
+    /*app.post('/test', function(req,res,next) {
+     test0.startMainCron();
+     res.status(200).send();
+     });*/
 
-        if (req.accepts('html')) {
-            return res.send(RESPONSES.PAGE_NOT_FOUND);
-        }
+    /*app.get('/test', function (req, res, next) {
+     res.status(200).send(test0.getJobs())
+     });*/
 
-        if (req.accepts('json')) {
-            return res.json({error: RESPONSES.PAGE_NOT_FOUND});
-        }
+    /*app.delete('/test/:id', function (req, res, next) {
+     test0.deleteJob( req.params.id );
+     res.status(200).send(test0.getJobs())
+     });*/
 
-        res.type('txt');
-        res.send(RESPONSES.PAGE_NOT_FOUND);
-    }
-
-    function errorHandler(err, req, res, next) {
-        var status = err.status || 500;
-
-          if (process.env.NODE_ENV === 'production') {
-            if (status === 401) {
-                logWriter.log('', err.message + '\n' + err.stack);
-            }
-            res.status(status);
-        } else {
-            if (status !== 401) {
-                logWriter.log('', err.message + '\n' + err.stack);
-            }
-            res.status(status).send(err.message + '\n' + err.stack);
-        }
-
-        if (status === 401) {
-            console.warn(err.message);
-        } else {
-            console.error(err.message);
-            //console.error(err.stack);
-        }
-        console.error(err.message || err);
-        res.status(status).send({error: err.message || err, stack: err.stack});
+    function notFound(req, res, next){
         next();
     }
 
-    app.use(notFound);
-    app.use(errorHandler);
+    function errorHandler( err, req, res, next ) {
+        var status = err.status || 500;
+
+        if( process.env.NODE_ENV === 'production' ) {
+            if(status === 404 || status === 401){
+                logWriter.log( '', err.message + '\n' + err.stack );
+            }
+            res.status( status );
+        } else {
+            if(status !== 401) {
+                logWriter.log( '', err.message + '\n' + err.stack );
+            }
+            res.status( status ).send( err.message + '\n' + err.stack );
+        }
+
+        if(status === 401){
+            console.warn( err.message );
+        } else {
+            console.error(err.message);
+            console.error(err.stack);
+        }
+    }
+    app.use( notFound );
+    app.use( errorHandler );
 };

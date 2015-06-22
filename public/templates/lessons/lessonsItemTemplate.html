@@ -1,0 +1,15 @@
+
+    <div id="leftLes">
+        <textarea placeholder="Lesson text"><%=model.text%></textarea>
+    </div>
+    <div id="centerLes">
+        <ul>
+        <% taxonomies.forEach(function(taxonomy,index){%>
+            <li id = "<%=taxonomy._id%>" class="taxName"><span><%=index + 1 %></span><%=taxonomy._id%></li>
+        <%})%>
+        </ul>
+    </div>
+    <div id="rightLes">
+
+    </div>
+    <div class="clear"></div>
